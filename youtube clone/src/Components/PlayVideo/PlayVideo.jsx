@@ -21,8 +21,8 @@ const PlayVideo = ({videoId}) => {
         if(!apiData) return;
         const channelData_url=`https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${API_KEY}`
         await fetch(channelData_url).then(res=>res.json()).then(data=>setChannelData(data.items[0]))
-        const comment_url=`https://youtube.googleapis.com/v3/commentThreads?part=snippet%2Creplies&videoId=${videoId}&key=${API_KEY}`;
-        await fetch(comment_url).then(res=>res.json()).then(data=>setCommentData(data.items))
+        const comment_url=`https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${videoId}&key=${API_KEY}`;
+        await fetch(comment_url).then(res=>res.json()).then(data=>setCommentData(data.items || []))
     }
     useEffect(()=>{
         fetchVideoData();
